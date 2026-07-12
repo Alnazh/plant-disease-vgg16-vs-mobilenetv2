@@ -41,14 +41,14 @@ def main():
 
     # Simpan model terbaik, hentikan lebih awal jika tidak ada perbaikan, catat history
     callbacks = [
-        tf.keras.callbacks.ModelCheckpoint(f"outputs/{MODEL_NAME}_best.keras", save_best_only=True, monitor="val_accuracy", mode="max"),
+        tf.keras.callbacks.ModelCheckpoint(f"models/{MODEL_NAME}_best.keras", save_best_only=True, monitor="val_accuracy", mode="max"),
         tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=4, restore_best_weights=True),
-        tf.keras.callbacks.CSVLogger(f"outputs/{MODEL_NAME}_history.csv"),
+        tf.keras.callbacks.CSVLogger(f"models/{MODEL_NAME}_history.csv"),
     ]
 
     model.fit(train_ds, validation_data=val_ds, epochs=EPOCHS, callbacks=callbacks)
-    model.save(f"outputs/{MODEL_NAME}_final.keras")
-    print("Training selesai. Model dan history tersimpan di folder outputs/")
+    model.save(f"models/{MODEL_NAME}_final.keras")
+    print("Training selesai. Model dan history tersimpan di folder models/")
 
 
 if __name__ == "__main__":
