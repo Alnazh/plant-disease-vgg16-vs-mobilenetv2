@@ -1,0 +1,38 @@
+{
+  "rows": [
+    {
+      "label": "Blight",
+      "precision": 0.8658,
+      "recall": 0.8889,
+      "f1_score": 0.8772,
+      "support": 225
+    },
+    {
+      "label": "Common_Rust",
+      "precision": 0.9746,
+      "recall": 0.9426,
+      "f1_score": 0.9583,
+      "support": 244
+    },
+    {
+      "label": "Gray_Leaf_Spot",
+      "precision": 0.8175,
+      "recall": 0.8175,
+      "f1_score": 0.8175,
+      "support": 126
+    },
+    {
+      "label": "Healthy",
+      "precision": 0.9918,
+      "recall": 1.0,
+      "f1_score": 0.9959,
+      "support": 242
+    }
+  ],
+  "accuracy": 0.9259,
+  "macro_avg": {
+    "precision": 0.9124,
+    "recall": 0.9122,
+    "f1_score": 0.9122
+  }
+}
