@@ -28,7 +28,7 @@ def get_datasets(img_size=IMG_SIZE, batch_size=BATCH_SIZE):
         image_size=img_size,
         batch_size=batch_size,
         label_mode="categorical",
-        shuffle=False,
+        shuffle=True,
         seed=SEED,
     )
 
