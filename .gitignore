@@ -1,12 +1,10 @@
-# Data
-data/*
-!data/.gitkeep
+# Dataset
+dataset/*
+!dataset/.gitkeep
 
-# Model checkpoints
-*.h5
-*.keras
-*.pt
-*.pth
+# Hasil training
+outputs/*
+!outputs/.gitkeep
 
 # Python
 __pycache__/
@@ -19,6 +17,3 @@ env/
 # OS
 .DS_Store
 Thumbs.db
-
-# Environment
-.env
