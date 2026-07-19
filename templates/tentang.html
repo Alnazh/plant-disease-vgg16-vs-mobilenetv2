@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Tentang{% endblock %}
+{% block content %}
+
+<div class="page-container">
+
+  <div class="page-heading">
+    <p class="eyebrow">Tentang Aplikasi</p>
+    <h1>Tentang CornLeaf</h1>
+    <p>Penjelasan mengenai aplikasi, fitur, teknologi yang digunakan, dan cara kerja CornLeaf secara singkat.</p>
+  </div>
+
+  <section class="about-block card">
+    <h3>Apa itu CornLeaf</h3>
+    <p>CornLeaf adalah aplikasi web untuk mendeteksi penyakit pada daun jagung secara otomatis menggunakan computer vision. Pengguna cukup mengunggah foto daun jagung, dan aplikasi akan menampilkan hasil klasifikasi dari dua model machine learning sekaligus, yaitu VGG16 dan MobileNetV2, lengkap dengan tingkat keyakinan dan rekomendasi tindakan.</p>
+  </section>
+
+  <section class="about-block card">
+    <p class="card-label">Fitur Utama</p>
+    <ul class="feature-list">
+      <li>Prediksi gambar daun jagung secara real-time dari dua model sekaligus</li>
+      <li>Rekomendasi tindakan penanganan berdasarkan hasil klasifikasi</li>
+      <li>Dashboard evaluasi lengkap dengan kurva training dan confusion matrix</li>
+      <li>Penjelasan otomatis di setiap grafik agar mudah dipahami</li>
+      <li>Eksplorasi dataset beserta rincian pembagian data latih dan validasi</li>
+      <li>Tampilan responsif yang dapat diakses dari perangkat mobile</li>
+    </ul>
+  </section>
+
+  <section class="about-block">
+    <p class="card-label">Teknologi yang Digunakan</p>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <span class="tech-icon bg-teal">Py</span>
+        <h4>Flask (Python)</h4>
+        <p>Backend server yang menangani routing halaman, proses inferensi, dan API data evaluasi.</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon bg-gold">TF</span>
+        <h4>TensorFlow &amp; Keras</h4>
+        <p>Framework untuk membangun dan menjalankan model VGG16 serta MobileNetV2 hasil transfer learning.</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon bg-green">Np</span>
+        <h4>NumPy</h4>
+        <p>Mengubah gambar menjadi array numerik yang siap diproses oleh model.</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon bg-blue">JS</span>
+        <h4>JavaScript Native</h4>
+        <p>Menangani interaksi unggah gambar, pemanggilan API prediksi, dan pembaruan tampilan hasil.</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon bg-purple">Cj</span>
+        <h4>Chart.js</h4>
+        <p>Menggambar kurva akurasi, kurva loss, dan grafik perbandingan metrik pada halaman Evaluasi.</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon bg-coral">Sk</span>
+        <h4>Scikit-learn</h4>
+        <p>Menghitung classification report dan confusion matrix saat proses evaluasi model dijalankan.</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon bg-slate">Cs</span>
+        <h4>HTML &amp; CSS Murni</h4>
+        <p>Tampilan antarmuka dibangun tanpa framework CSS, dengan satu berkas gaya terpusat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-block card">
+    <p class="card-label">Cara Kerja</p>
+    <div class="workflow-steps">
+      <div class="workflow-step">
+        <span class="workflow-step-number">1</span>
+        <div class="workflow-step-text">
+          <h4>Unggah Gambar</h4>
+          <p>Pengguna mengunggah foto daun jagung melalui halaman Prediksi.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="workflow-step-number">2</span>
+        <div class="workflow-step-text">
+          <h4>Pra-pemrosesan</h4>
+          <p>Gambar diubah ukurannya menjadi 224x224 piksel dan dikonversi menjadi array numerik menggunakan NumPy dan util Keras.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="workflow-step-number">3</span>
+        <div class="workflow-step-text">
+          <h4>Preprocessing Khusus Model</h4>
+          <p>Array diproses ulang sesuai kebutuhan masing-masing arsitektur, memakai fungsi <code>preprocess_input</code> milik VGG16 dan MobileNetV2 secara terpisah.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="workflow-step-number">4</span>
+        <div class="workflow-step-text">
+          <h4>Inferensi Dua Model</h4>
+          <p>Gambar yang sama diproses oleh VGG16 dan MobileNetV2 secara terpisah untuk menghasilkan probabilitas tiap kelas.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <span class="workflow-step-number">5</span>
+        <div class="workflow-step-text">
+          <h4>Tampilkan Hasil</h4>
+          <p>Kelas dengan probabilitas tertinggi ditampilkan sebagai prediksi, disertai rekomendasi tindakan dan tingkat kesepakatan kedua model.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-block card">
+    <p class="card-label">Informasi Aplikasi</p>
+    <div class="app-info-list">
+      <div class="app-info-row"><span>Nama Aplikasi</span><span>CornLeaf</span></div>
+      <div class="app-info-row"><span>Versi</span><span>1.0.0</span></div>
+      <div class="app-info-row"><span>Jenis Aplikasi</span><span>Web app klasifikasi citra (Flask)</span></div>
+      <div class="app-info-row"><span>Model yang Dilayani</span><span>VGG16 &amp; MobileNetV2</span></div>
+      <div class="app-info-row"><span>Mode Inferensi</span><span>Real-time, model dimuat sekali saat server start</span></div>
+      <div class="app-info-row"><span>Batas Ukuran Unggahan</span><span>5 MB per gambar</span></div>
+      <div class="app-info-row"><span>Status Data Uji Terpisah</span><span>Tidak ada, seluruh data dialokasikan ke latih dan validasi</span></div>
+    </div>
+    <p class="app-info-disclaimer">Aplikasi ini bersifat alat bantu diagnosis awal dan tidak menggantikan pemeriksaan oleh ahli pertanian atau petugas penyuluh lapangan, terutama untuk kasus yang gejalanya tidak jelas atau kedua model memberi hasil yang berbeda.</p>
+    <p class="app-info-disclaimer">Karena tidak ada data uji terpisah, seluruh angka akurasi yang ditampilkan di halaman Evaluasi berasal dari data validasi, bukan dari data yang benar-benar belum pernah dilihat model. Untuk menilai performa pada gambar baru, gunakan halaman Prediksi secara langsung.</p>
+  </section>
+
+</div>
+
+{% endblock %}

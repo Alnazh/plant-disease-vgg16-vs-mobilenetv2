@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Beranda{% endblock %}
+{% block content %}
+
+<div class="page-container">
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">CornLeaf, Klasifikasi Citra dengan Computer Vision</p>
+      <h1>Deteksi Penyakit Daun Jagung dengan Dua Arsitektur CNN</h1>
+      <p>CornLeaf membandingkan performa VGG16 dan MobileNetV2 dalam mengenali empat kondisi daun jagung, yaitu Blight, Common Rust, Gray Leaf Spot, dan Healthy (Sehat), menggunakan pendekatan transfer learning.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('prediksi') }}" class="btn btn-primary">Coba Prediksi</a>
+        <a href="{{ url_for('evaluasi') }}" class="btn btn-secondary">Lihat Evaluasi</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-panel-row"><span>Jumlah Kelas</span><span>4 kelas</span></div>
+      <div class="hero-panel-row"><span>Total Gambar Dataset</span><span>4.188 gambar</span></div>
+      <div class="hero-panel-row"><span>Akurasi Validasi VGG16</span><span>{{ vgg16_accuracy if vgg16_accuracy else "belum tersedia" }}</span></div>
+      <div class="hero-panel-row"><span>Akurasi Validasi MobileNetV2</span><span>{{ mobilenetv2_accuracy if mobilenetv2_accuracy else "belum tersedia" }}</span></div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <p class="card-label">Ringkasan</p>
+    <div class="stat-grid">
+      <div class="stat-card tone-blue">
+        <div class="stat-value tone-blue">VGG16</div>
+        <div class="stat-label">Arsitektur dalam, 138 juta parameter</div>
+      </div>
+      <div class="stat-card tone-purple">
+        <div class="stat-value tone-purple">MobileNetV2</div>
+        <div class="stat-label">Arsitektur ringan, 3.4 juta parameter</div>
+      </div>
+      <div class="stat-card tone-gold">
+        <div class="stat-value tone-gold">4</div>
+        <div class="stat-label">Kelas Penyakit Daun</div>
+      </div>
+      <div class="stat-card tone-teal">
+        <div class="stat-value tone-teal">80:20</div>
+        <div class="stat-label">Rasio Data Latih dan Validasi</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block card">
+    <p class="card-label">Latar Belakang Singkat</p>
+    <p>Jagung merupakan salah satu komoditas pangan strategis nasional, sehingga deteksi dini penyakit pada daunnya penting untuk menjaga produktivitas panen. CornLeaf menyediakan tiga hal utama, yaitu pengujian gambar daun secara langsung, evaluasi lengkap performa kedua model, dan penjelasan mengenai dataset yang digunakan.</p>
+  </section>
+
+  <section class="section-block">
+    <p class="card-label">Apa yang Bisa Kamu Lakukan di Sini</p>
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <span class="highlight-icon">&#128248;</span>
+        <h4>Uji Gambar Secara Instan</h4>
+        <p>Unggah foto daun jagung dan dapatkan hasil klasifikasi dari dua model sekaligus hanya dalam beberapa detik.</p>
+      </div>
+      <div class="highlight-card">
+        <span class="highlight-icon">&#128202;</span>
+        <h4>Evaluasi yang Transparan</h4>
+        <p>Lihat kurva training, classification report, dan confusion matrix lengkap dengan angka asli, bukan klaim tanpa bukti.</p>
+      </div>
+      <div class="highlight-card">
+        <span class="highlight-icon">&#129504;</span>
+        <h4>Bandingkan Dua Arsitektur</h4>
+        <p>VGG16 yang dalam dan akurat, versus MobileNetV2 yang ringan dan efisien, dibandingkan berdampingan pada gambar yang sama.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <p class="card-label">Empat Kondisi yang Dikenali</p>
+    <div class="class-grid">
+      <div class="class-card" data-disease="Blight">
+        <h4>Blight (Hawar Daun)</h4>
+        <p>Bercak memanjang berwarna coklat keabuan pada permukaan daun.</p>
+      </div>
+      <div class="class-card" data-disease="Common_Rust">
+        <h4>Common Rust (Karat Daun)</h4>
+        <p>Bintik kecil berwarna coklat kemerahan menyerupai karat besi.</p>
+      </div>
+      <div class="class-card" data-disease="Gray_Leaf_Spot">
+        <h4>Gray Leaf Spot (Bercak Daun Abu-abu)</h4>
+        <p>Bercak persegi panjang berwarna abu-abu kecoklatan sejajar tulang daun.</p>
+      </div>
+      <div class="class-card" data-disease="Healthy">
+        <h4>Healthy (Sehat)</h4>
+        <p>Daun tanpa gejala penyakit, berwarna hijau merata.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block card">
+    <p class="card-label">Pertanyaan yang Sering Muncul</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>Kenapa VGG16 dan MobileNetV2 bisa memberi hasil yang berbeda pada gambar yang sama?</h4>
+        <p>Keduanya adalah arsitektur yang berbeda dengan cara belajar pola yang tidak identik, sehingga wajar bila keyakinan atau bahkan kelas hasil prediksinya sedikit berbeda, terutama pada gambar yang gejalanya tidak terlalu jelas. Ini bukan berarti ada yang salah dengan kodenya, melainkan karakteristik alami dari dua model yang berbeda.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Model mana yang sebaiknya lebih dipercaya?</h4>
+        <p>Halaman Prediksi otomatis menampilkan rekomendasi berdasarkan tingkat keyakinan pada gambar yang diunggah dan akurasi historis kedua model di halaman Evaluasi, sehingga tidak perlu menebak sendiri.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Apakah dataset yang digunakan sudah dipisah menjadi data latih dan validasi?</h4>
+        <p>Ya, dataset dibagi otomatis dengan rasio 80:20. Detail lengkap jumlah gambar per kelas dapat dilihat di halaman Dataset.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Dataset{% endblock %}
+{% block content %}
+
+<div class="page-container">
+
+  <div class="page-heading">
+    <p class="eyebrow">Sumber Data</p>
+    <h1>Corn or Maize Leaf Disease Dataset</h1>
+    <p>Dataset dikurasi dari PlantVillage dan PlantDoc, terdiri dari 4.188 gambar daun jagung dalam 4 kondisi berbeda.</p>
+  </div>
+
+  <section class="section-block">
+    <div class="stat-grid">
+      <div class="stat-card tone-gold">
+        <div class="stat-value tone-gold">{{ total_images }}</div>
+        <div class="stat-label">Total Gambar</div>
+      </div>
+      <div class="stat-card tone-teal">
+        <div class="stat-value tone-teal">{{ total_train if total_train else "-" }}</div>
+        <div class="stat-label">Data Latih (Train)</div>
+      </div>
+      <div class="stat-card tone-purple">
+        <div class="stat-value tone-purple">{{ total_val if total_val else "-" }}</div>
+        <div class="stat-label">Data Validasi (Val)</div>
+      </div>
+      <div class="stat-card tone-blue">
+        <div class="stat-value tone-blue">4</div>
+        <div class="stat-label">Jumlah Kelas</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <p class="card-label">Distribusi dan Pembagian Data</p>
+    <div class="dataset-overview">
+      <div class="chart-box chart-box-compact">
+        <h3>Distribusi Kelas</h3>
+        <div class="chart-canvas-wrap">
+          <canvas id="chart-distribution"></canvas>
+        </div>
+        <div class="distribution-breakdown">
+          {% for item in classes %}
+          <div class="distribution-row">
+            <span class="dot" data-disease="{{ item.name }}"></span>
+            <span class="distribution-label">{{ item.label }}</span>
+            <span class="distribution-count">{{ item.count }} gambar</span>
+            <span class="distribution-pct">{{ item.pct }}%</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% if distribution_caption %}
+        <p class="chart-caption">{{ distribution_caption }}</p>
+        {% endif %}
+      </div>
+      <div class="chart-box dataset-info-card">
+        <h3>Ringkasan Pembagian Data</h3>
+        {% if train_pct and val_pct %}
+        <div class="split-legend">
+          <span><span class="dot dot-teal"></span>Latih {{ train_pct }}%</span>
+          <span><span class="dot dot-purple"></span>Validasi {{ val_pct }}%</span>
+        </div>
+        <div class="split-bar">
+          <div class="split-bar-train" data-pct="{{ train_pct }}"></div>
+          <div class="split-bar-val" data-pct="{{ val_pct }}"></div>
+        </div>
+        {% endif %}
+        <div class="dataset-info-row"><span>Total Gambar</span><span>{{ total_images }} gambar</span></div>
+        <div class="dataset-info-row"><span>Data Latih (Train)</span><span>{{ total_train if total_train else "-" }} gambar</span></div>
+        <div class="dataset-info-row"><span>Data Validasi (Val)</span><span>{{ total_val if total_val else "-" }} gambar</span></div>
+        <div class="dataset-info-row"><span>Data Uji Terpisah (Test)</span><span>Tidak ada</span></div>
+        <div class="dataset-info-row"><span>Ukuran Input Model</span><span>224 x 224 px</span></div>
+        <div class="dataset-info-row"><span>Format Berkas</span><span>JPG</span></div>
+        <div class="dataset-info-row"><span>Batch Size</span><span>16</span></div>
+        <div class="dataset-info-row"><span>Metode Split</span><span>image_dataset_from_directory</span></div>
+        <p class="chart-caption">Dataset ini tidak memiliki folder test terpisah, sehingga pembagian hanya dilakukan menjadi data latih dan data validasi memakai fungsi <code>image_dataset_from_directory</code> dari TensorFlow dengan <code>validation_split=0.2</code>. Skor akurasi dan confusion matrix pada halaman Evaluasi dihitung dari data validasi ini.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <p class="card-label">Detail Kelas</p>
+    <div class="class-grid">
+      {% for item in classes %}
+      <div class="class-card" data-disease="{{ item.name }}">
+        <h4>{{ item.label }}</h4>
+        <p>{{ item.description }}</p>
+        <p class="class-count">{{ item.count }} gambar</p>
+        {% if item.train_count is not none %}
+        <p class="class-split">Latih: {{ item.train_count }} &middot; Validasi: {{ item.val_count }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section-block card">
+    <p class="card-label">Sumber Dataset</p>
+    <p>Diunduh dari Kaggle, <a href="https://www.kaggle.com/datasets/smaranjitghose/corn-or-maize-leaf-disease-dataset" target="_blank" rel="noopener">smaranjitghose/corn-or-maize-leaf-disease-dataset</a>. Pembagian data latih dan validasi dilakukan otomatis dengan rasio 80:20 menggunakan fungsi <code>image_dataset_from_directory</code> dari TensorFlow.</p>
+  </section>
+
+</div>
+
+{% endblock %}
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dataset.js') }}"></script>
+{% endblock %}
